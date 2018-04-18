@@ -1,0 +1,96 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<div class="container">
+
+    @if (TempData["error"] != null) {
+    <div class="alert alert-danger">
+        @TempData["error"]
+    </div>
+    }
+</div>
+
+
+<h3>Show</h3>
+@using (Html.BeginForm("Show",null, FormMethod.Get)) {
+    <input type="text" name="name"/>
+    <button type="submit">Show</button>
+}
+
+
+<h3>Find</h3>
+
+@using (Html.BeginForm("Edit", null, FormMethod.Get))
+{
+    <input type="text" name="name" />
+    <button type="submit">Show</button>
+}
+
+
+
+<h3>Add</h3>
+
+@using (Html.BeginForm())
+{
+    <div class="form-group">
+        <lable>
+            Name
+            <input class="form-control" required type="text" name="Name" />
+        </lable>
+    </div>
+    <div>
+    <label>
+        Father
+        <input type="text" name="Father" />
+    </label>
+    </div>
+    <div>
+    <label>
+        Mother
+        <input type="text" name="Mother" />
+    </label>
+    </div>
+    <div><label>
+        Birth
+        <input type="date" name="Birth" />
+    </label>
+    </div>
+    <div>
+    <label>
+        Death
+        <input type="date" name="Death" />
+    </label>
+    </div>
+
+    <div class="form-group">
+    <label for="m">Male</label>
+    <input type="radio" name="Sex" value="m" id="m" />
+    <label for="f">Female</label>
+    <input required type="radio" name="Sex" value="f" id="f" />
+    </div>
+
+
+
+    <button type="submit">add</button>
+}
+
+
+
+<h3>CommonAncestors</h3>
+
+@using (Html.BeginForm("CommonAncestors", null, FormMethod.Get))
+{
+    <input type="text" name="name1" />
+    <input type="text" name="name2" />
+    <button type="submit">Show</button>
+}
+
+
+<h3>Heirs</h3>
+
+@using (Html.BeginForm("Heirs", null, FormMethod.Get))
+{
+    <input type="text" name="name" />
+    <button type="submit">Show</button>
+}

@@ -1,0 +1,28 @@
+﻿@model Person
+@{
+    ViewBag.Title = "Index";
+}
+
+
+@helper Person(Person person)
+{
+ViewBag.db.Activate(person, 3);
+    <li>
+        <p>name: @person.Name</p>
+        <p>birth: @person.Birth</p>
+        <p>death: @person.Death</p>
+        <ul>
+            @foreach (var child in person.Children)
+            {
+                @Person(child)
+            }
+        </ul>
+    </li>
+}
+
+
+<div class="container">
+    <ul>
+        @Person(Model)
+    </ul>
+</div>

@@ -1,0 +1,61 @@
+﻿@model Person
+@{
+    ViewBag.Title = "Edit";
+}
+
+@helper FormatDate(DateTime? time)
+{
+if (time != null)
+{
+        @time.GetValueOrDefault().ToString("yyyy-MM-dd");
+    }
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm())
+{
+    <div class="form-group">
+        <lable>
+            Name
+            <input class="form-control" required type="text" name="Name" value="@Model.Name" />
+        </lable>
+    </div>
+    <div>
+        <label>
+            Father
+            <input type="text" name="Father" value="@(Model.Father?.Name)" />
+        </label>
+    </div>
+    <div>
+        <label>
+            Mother
+            <input type="text" name="Mother" value="@(Model.Mother?.Name)" />
+        </label>
+    </div>
+    <div>
+        <label>
+            Birth
+            <input type="date" name="Birth" value="@FormatDate(Model.Birth)" />
+        </label>
+    </div>
+    <div>
+        <label>
+            Death
+            <input type="date" name="Death" value="@FormatDate(Model.Death)" />
+        </label>
+    </div>
+
+    <div class="form-group">
+        <label for="m">Male</label>
+        <input required type="radio" @(Model.Sex == "m" ? "checked" : "") name="Sex" value="m" id="m" />
+        <label for="f">Female</label>
+        <input required type="radio" @(Model.Sex == "f" ? "checked" : "") name="Sex" value="f" id="f" />
+    </div>
+
+    <button type="submit">Edit</button>
+}
+
+@using (Html.BeginForm("Remove", null, FormMethod.Get)) {
+    <button type="submit">Remove</button>
+}
