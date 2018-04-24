@@ -186,41 +186,10 @@ namespace Gen.Controllers {
 
             string s = null;
 
-            //foreach (var item in p.Children)
-            //{
-            //    s = ValidatePerson(item);
-            //}
+            foreach (var item in p.Children) {
+                s = ValidatePerson(item);
+            }
             return s;
-        }
-
-        public ActionResult InitList()
-        {
-            var p = new Person()
-            {
-                Name = "Stefan",
-                Sex = "m",
-                Children = new List<Person>() {
-                    new Person() {
-                        Name = "Julia",
-                        Sex = "f",
-                        Children= new List<Person>()
-                    },
-                    new Person() {
-                        Name = "Julia2",
-                        Sex = "f",
-                        Children= new List<Person>()
-                    },
-                    new Person() {
-                        Name = "Julia3",
-                        Sex = "f",
-                        Children= new List<Person>()
-                    }
-                }
-            };
-
-            db.Store(p);
-
-            return RedirectToAction("Index");
         }
 
         public ActionResult Index(string name = "Stefan")
@@ -305,12 +274,6 @@ namespace Gen.Controllers {
         {
             var p = PersonFromForm(form);
 
-            TempData["error"] = ValidatePerson(p);
-
-            if (TempData["error"] != null)
-            {
-                return RedirectToAction("Index");
-            }
 
             var pp = FindPerson((string)TempData["personName"]);
 
@@ -354,6 +317,14 @@ namespace Gen.Controllers {
                 db.Store(pp.Mother.Children);
             }
             db.Store(pp);
+
+            TempData["error"] = ValidatePerson(pp);
+
+            if (TempData["error"] != null) {
+                db.Rollback();
+                return RedirectToAction("Index");
+            }
+
             return RedirectToAction("Index");
         }
 
